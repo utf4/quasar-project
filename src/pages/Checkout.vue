@@ -38,6 +38,28 @@
           </div>
           <h2>Contact information</h2>
           <div class="mt-20">
+            <q-input
+              outlined
+              v-model="text"
+              label="Email Address"
+              class="mt-20"
+            >
+              <template v-slot:prepend>
+                <q-avatar>
+                  <img src="~assets/icons/email.svg" />
+                </q-avatar>
+              </template>
+            </q-input>
+            <q-input outlined v-model="text" label="Phone Number" class="mt-20">
+              <template v-slot:prepend>
+                <q-avatar>
+                  <img src="~assets/icons/phone.svg" />
+                </q-avatar>
+              </template>
+            </q-input>
+          </div>
+          <h2 class="mt-50">Shipping address</h2>
+          <div class="mt-20">
             <q-select
               class="form-field"
               outlined
@@ -45,18 +67,74 @@
               :options="options"
               :dense="dense"
               :options-dense="denseOpts"
+              label="Select a Country"
             >
               <template v-slot:prepend>
                 <img src="~assets/icons/location.svg" />
               </template>
             </q-select>
-            <q-input color="teal" outlined v-model="text" label="Label">
-              <template v-slot:append>
+            <div class="two-fields-row">
+              <div class="col">
+                <q-input
+                  outlined
+                  v-model="text"
+                  label="First Name"
+                  class="mt-20"
+                >
+                  <template v-slot:prepend>
+                    <q-avatar>
+                      <img src="~assets/icons/user.svg" />
+                    </q-avatar>
+                  </template>
+                </q-input>
+              </div>
+              <div class="col">
+                <q-input
+                  outlined
+                  v-model="text"
+                  label="Last Name"
+                  class="mt-20"
+                >
+                  <template v-slot:prepend>
+                    <q-avatar>
+                      <img src="~assets/icons/user.svg" />
+                    </q-avatar>
+                  </template>
+                </q-input>
+              </div>
+            </div>
+            <q-input outlined v-model="text" label="Address" class="mt-20">
+              <template v-slot:prepend>
                 <q-avatar>
-                  <img src="https://cdn.quasar.dev/logo-v2/svg/logo.svg" />
+                  <img src="~assets/icons/address.svg" />
                 </q-avatar>
               </template>
             </q-input>
+            <q-input
+              outlined
+              v-model="text"
+              label="Aparment, suit, etc (Optional)"
+              class="mt-20"
+            >
+              <template v-slot:prepend>
+                <q-avatar>
+                  <img src="~assets/icons/appartment.svg" />
+                </q-avatar>
+              </template>
+            </q-input>
+            <div class="two-fields-row">
+              <div class="col">
+                <q-input outlined v-model="text" label="City" class="mt-20" />
+              </div>
+              <div class="col">
+                <q-input
+                  outlined
+                  v-model="text"
+                  label="Post code"
+                  class="mt-20"
+                />
+              </div>
+            </div>
           </div>
         </div>
         <div class="column-right">
@@ -76,7 +154,7 @@ export default {
       model: ref(null),
       text: ref(''),
 
-      options: ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'],
+      options: ['USA', 'Austalia', 'UK', 'Germany'],
 
       dense: ref(false),
       denseOpts: ref(false)
@@ -97,6 +175,9 @@ export default {
       column-gap: 30px;
       .mt-20 {
         margin-top: 20px;
+      }
+      .mt-50 {
+        margin-top: 50px;
       }
       p {
         font-family: 'Poppins';
@@ -210,6 +291,22 @@ export default {
           padding: 11px 35px;
         }
       }
+      .two-fields-row {
+        display: flex;
+        align-items: center;
+        column-gap: 24px;
+      }
+      .q-field {
+        outline: none !important;
+      }
+      .q-field__label {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        color: #979ab8;
+      }
       .q-field--outlined .q-field__control:before {
         border: 1px solid #d6d8ee;
         border-radius: 16px;
@@ -217,10 +314,17 @@ export default {
         z-index: 0;
       }
       .q-field--outlined.q-field--highlighted .q-field__control:after {
-        border-radius: 16px;
+        border-radius: 16px !important;
       }
       .q-field__prepend {
         z-index: 1;
+      }
+      .q-field--outlined .q-field__control {
+        padding: 0px 25px;
+      }
+      .q-field__marginal .q-avatar {
+        font-size: 18px;
+        border-radius: 0;
       }
     }
     .column-left {
