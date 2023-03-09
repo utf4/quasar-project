@@ -28,11 +28,13 @@
         </p>
         <div class="flex items-stretch mt-40 gap-30 two-box">
           <div class="box small">
-            <div class="flex items-center justify-center gap-7">
+            <div class="flex items-center justify-center gap-7 secure-text">
               <img src="~/assets/icons/lock.svg" />
               <p class="small">Guaranteed Safe & Secure Checkout</p>
             </div>
-            <div class="flex items-center justify-center gap-15 mt-30">
+            <div
+              class="flex items-center justify-center gap-15 mt-30 secure-text"
+            >
               <img src="~/assets/icons/mastercard.svg" />
               <img src="~/assets/icons/visa.svg" />
               <img src="~/assets/icons/paypal.svg" />
@@ -157,10 +159,22 @@ export default {
         .box:first-child {
           max-width: 475px;
           width: 100%;
+          @media (max-width: $breakpoint-sm-max) {
+            flex: 1;
+          }
+          @media (max-width: $breakpoint-xs-max) {
+            max-width: revert;
+          }
         }
         .box:last-child {
           max-width: 285px;
           width: 100%;
+          @media (max-width: $breakpoint-sm-max) {
+            flex: 1;
+          }
+          @media (max-width: $breakpoint-xs-max) {
+            max-width: revert;
+          }
         }
       }
       .action-btns {
@@ -168,6 +182,9 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
+        @media (max-width: $breakpoint-sm-max) {
+          margin-top: 40px;
+        }
         button {
           min-height: 76px;
           font-family: 'Poppins';
@@ -226,6 +243,10 @@ export default {
         font-size: 18px;
         line-height: 28px;
         color: #4b4e68;
+        @media (max-width: $breakpoint-sm-max) {
+          font-size: 16px;
+          line-height: 26px;
+        }
         &.bold {
           font-weight: 600;
           line-height: 24px;

@@ -3,6 +3,31 @@
     <div class="container">
       <div class="page-layout">
         <div class="column-left flex column items-center">
+          <div class="mobile-sumary d-lg-none d-md-block">
+            <div class="show-summary-btn">
+              <div
+                class="btn-click flex items-center gap-15"
+                :class="{ active: state.summary === true }"
+                @click="toggleSummary()"
+              >
+                <img src="~/assets/icons/cart.svg" />
+                <p>Show order summary</p>
+                <img src="~/assets/icons/chev.svg" class="chev" />
+              </div>
+              <p class="bold6">€69.00</p>
+            </div>
+            <div
+              v-show="state.summary === true"
+              class="mt-12 d-lg-none d-md-block"
+            >
+              <OrderDetail
+                :productList="itemsList"
+                :Subtotal="Subtotal"
+                :totalPrice="totalPrice"
+                :showDiscount="true"
+              />
+            </div>
+          </div>
           <img src="~assets/thanks.svg" />
           <h2 class="mt-34">Thank you for your order</h2>
           <p>Your order is confirmed</p>
@@ -43,6 +68,7 @@
             :Subtotal="Subtotal"
             :totalPrice="totalPrice"
             :showDiscount="showDiscount"
+            class="d-md-none"
           />
           <SecureSection />
         </div>
@@ -52,6 +78,7 @@
 </template>
 
 <script>
+import { reactive } from 'vue'
 import OrderDetail from 'components/checkout/OrderDetail.vue'
 import SecureSection from 'components/checkout/Secure.vue'
 export default {
@@ -60,7 +87,15 @@ export default {
     SecureSection: SecureSection
   },
   setup() {
+    const state = reactive({
+      summary: false
+    })
+    const toggleSummary = () => {
+      state.summary = !state.summary
+    }
     return {
+      state,
+      toggleSummary,
       totalPrice: 69.0,
       Subtotal: 69.0,
       showDiscount: false,
@@ -87,6 +122,35 @@ export default {
     .page-layout {
       display: flex;
       column-gap: 30px;
+      .mobile-sumary {
+        width: 100%;
+        margin-bottom: 60px;
+        .box {
+          border: 1px solid #d6d8ee;
+          border-radius: 16px;
+          padding: 30px;
+          margin-bottom: 30px;
+        }
+        .show-summary-btn {
+          background: #ffffff;
+          border: 1px solid #d6d8ee;
+          border-radius: 20px;
+          padding: 25px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 30px;
+          cursor: pointer;
+          .btn-click {
+            cursor: pointer;
+            &.active {
+              .chev {
+                transform: rotateX(180deg);
+              }
+            }
+          }
+        }
+      }
       .content-box {
         background: rgba(239, 240, 245, 0.4);
         border-radius: 16px;
@@ -264,6 +328,9 @@ export default {
     .column-right {
       max-width: 595px;
       width: 100%;
+      @media (max-width: $breakpoint-sm-max) {
+        max-width: 100%;
+      }
 
       .box {
         background-color: #ffffff;
@@ -271,6 +338,19 @@ export default {
         padding: 40px;
         margin-bottom: 30px;
       }
+    }
+  }
+  @media (min-width: $breakpoint-sm-min) {
+    .d-lg-none {
+      display: none;
+    }
+  }
+  @media (max-width: $breakpoint-sm-max) {
+    .d-md-none {
+      display: none;
+    }
+    .d-md-block {
+      display: block;
     }
   }
 }

@@ -4,6 +4,32 @@
       <div class="page-layout">
         <div class="column-left">
           <h1 class="page-title">Checkout</h1>
+          <div class="mobile-sumary d-lg-none d-md-block">
+            <div class="show-summary-btn">
+              <div
+                class="btn-click flex items-center gap-15"
+                :class="{ active: state.summary === true }"
+                @click="toggleSummary()"
+              >
+                <img src="~/assets/icons/cart.svg" />
+                <p>Show order summary</p>
+                <img src="~/assets/icons/chev.svg" class="chev" />
+              </div>
+              <p class="bold6">€69.00</p>
+            </div>
+            <div
+              v-show="state.summary === true"
+              class="mt-12 d-lg-none d-md-block"
+            >
+              <OrderDetail
+                :productList="itemsList"
+                :Subtotal="Subtotal"
+                :totalPrice="totalPrice"
+                :showDiscount="true"
+              />
+              <ClubPage />
+            </div>
+          </div>
           <div class="sub-title">
             Strong demand! Complete your order before it's too late!
           </div>
@@ -281,11 +307,13 @@
             :productList="itemsList"
             :Subtotal="Subtotal"
             :totalPrice="totalPrice"
-             :showDiscount="true"
+            :showDiscount="true"
+            class="d-md-none"
           />
-          <SecureSection />
-          <ClubPage />
+          <SecureSection class="d-md-none" />
+          <ClubPage class="d-md-none" />
           <PaymentMethod />
+          <SecureSection class="d-lg-none d-md-block" />
         </div>
       </div>
     </div>
@@ -327,7 +355,8 @@ export default {
     const state = reactive({
       shipingMethod: 1,
       billingAddress: 1,
-      paymentMethod: 1
+      paymentMethod: 1,
+      summary: false
     })
     const toggleShipingMethod = (buttonNumber) => {
       state.shipingMethod = buttonNumber
@@ -337,6 +366,9 @@ export default {
     }
     const togglePaymentMethod = (buttonNumber) => {
       state.paymentMethod = buttonNumber
+    }
+    const toggleSummary = () => {
+      state.summary = !state.summary
     }
 
     return {
@@ -372,7 +404,8 @@ export default {
       state,
       toggleShipingMethod,
       toggleBillingAddress,
-      togglePaymentMethod
+      togglePaymentMethod,
+      toggleSummary
     }
   }
 }
@@ -381,13 +414,51 @@ export default {
 <style lang="scss">
 .page-bg {
   background-color: #d6d8ea;
+
   .container {
     max-width: 1600px;
     margin: 0 auto;
-    padding: 60px 20px;
+    padding: 60px 40px;
+    @media (max-width: $breakpoint-sm-max) {
+      padding: 60px 40px;
+    }
     .page-layout {
       display: flex;
       column-gap: 30px;
+      @media (max-width: $breakpoint-sm-max) {
+        flex-direction: column;
+        row-gap: 30px;
+      }
+      .mobile-sumary {
+        .box {
+          border: 1px solid #d6d8ee;
+          border-radius: 16px;
+          padding: 30px;
+          margin-bottom: 30px;
+          @media (max-width: $breakpoint-xs-max) {
+            padding: 15px;
+          }
+        }
+        .show-summary-btn {
+          background: #ffffff;
+          border: 1px solid #d6d8ee;
+          border-radius: 20px;
+          padding: 25px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 30px;
+          cursor: pointer;
+          .btn-click {
+            cursor: pointer;
+            &.active {
+              .chev {
+                transform: rotateX(180deg);
+              }
+            }
+          }
+        }
+      }
       span.error-message {
         font-family: 'Poppins';
         font-style: normal;
@@ -411,12 +482,24 @@ export default {
       }
       .mt-20 {
         margin-top: 20px;
+        @media (max-width: $breakpoint-sm-max) {
+          margin-top: 24px;
+        }
+        @media (max-width: $breakpoint-xs-max) {
+          margin-top: 15px;
+        }
+      }
+      .mt-12 {
+        margin-top: 12px;
       }
       .mt-30 {
         margin-top: 30px;
       }
       .mt-50 {
         margin-top: 50px;
+        @media (max-width: $breakpoint-xs-max) {
+          margin-top: 30px;
+        }
       }
       .mt-12 {
         margin-top: 12px;
@@ -576,6 +659,10 @@ export default {
         line-height: 46px;
         color: #000034;
         margin-bottom: 50px;
+        @media (max-width: $breakpoint-xs-max) {
+          font-size: 30px;
+          line-height: 40px;
+        }
       }
       h2 {
         font-family: 'Poppins';
@@ -635,6 +722,9 @@ export default {
         border-radius: 16px;
         margin-bottom: 20px;
         padding: 30px;
+        @media (max-width: $breakpoint-xs-max) {
+          padding: 15px;
+        }
         .express-checkout-btns {
           display: flex;
           column-gap: 20px;
@@ -662,6 +752,9 @@ export default {
         background: #f5f5f8;
         border-radius: 16px;
         padding: 30px;
+        @media (max-width: $breakpoint-xs-max) {
+          padding: 15px;
+        }
         margin-bottom: 50px;
         h3 {
           margin-bottom: 7px;
@@ -670,17 +763,28 @@ export default {
           font-size: 14px;
           line-height: 24px;
           max-width: 635px;
+          @media (max-width: $breakpoint-sm-max) {
+            max-width: 340px;
+          }
         }
         button {
           font-weight: 500;
           max-width: 115px;
           padding: 11px 35px;
+          @media (max-width: $breakpoint-xs-max) {
+            margin-top: 20px;
+            max-width: 150px;
+            min-height: 42px;
+            padding: 11px 26px;
+          }
         }
       }
       .two-fields-row {
         display: flex;
-        align-items: center;
         column-gap: 24px;
+        @media (max-width: $breakpoint-xs-max) {
+          display: block;
+        }
       }
       .q-field,
       .q-field__inner,
@@ -741,6 +845,12 @@ export default {
           }
         }
       }
+      .q-field--with-bottom {
+        padding-bottom: 0;
+      }
+      .q-field--with-bottom.q-field--error {
+        padding-bottom: 20px;
+      }
     }
     .column-left {
       background-color: #ffffff;
@@ -748,17 +858,42 @@ export default {
       max-width: 975px;
       width: 100%;
       padding: 40px;
+      @media (max-width: $breakpoint-sm-max) {
+        max-width: 100%;
+      }
     }
     .column-right {
       max-width: 595px;
       width: 100%;
-
+      @media (max-width: $breakpoint-sm-max) {
+        max-width: 100%;
+      }
       .box {
         background-color: #ffffff;
         border-radius: 16px;
         padding: 40px;
         margin-bottom: 30px;
       }
+    }
+  }
+  @media (min-width: $breakpoint-sm-min) {
+    .d-lg-none {
+      display: none;
+    }
+  }
+  @media (max-width: $breakpoint-sm-max) {
+    .d-md-none {
+      display: none;
+    }
+    .d-md-block {
+      display: block;
+    }
+  }
+  @media (max-width: $breakpoint-xs-max) {
+    .secure-text {
+      align-items: start;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
     }
   }
 }
