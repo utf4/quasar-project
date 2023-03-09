@@ -52,7 +52,7 @@
           </div>
         </div>
         <div class="action-btns">
-          <button>
+          <button @click="$router.replace('/checkout')">
             Yes, I want <img src="~/assets/icons/arrow.svg" class="q-ml-md" />
           </button>
           <p class="bold mt-30 pointer">No, Thanks</p>

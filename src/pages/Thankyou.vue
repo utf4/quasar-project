@@ -6,7 +6,7 @@
           <img src="~assets/thanks.svg" />
           <h2 class="mt-34">Thank you for your order</h2>
           <p>Your order is confirmed</p>
-          <button class="back-btn mt-40">
+          <button class="back-btn mt-40" @click="$router.replace('/upsell')">
             <img src="~assets/icons/backarrow.svg" class="q-mr-sm" />Back to
             Shop
           </button>

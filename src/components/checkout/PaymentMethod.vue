@@ -99,7 +99,7 @@
                 Collection Club®
               </p>
             </div>
-            <button class="purchase-button mt-30">Complete Purchase</button>
+            <button class="purchase-button mt-30" @click="$router.replace('/thanks')">Complete Purchase</button>
           </div>
 </template>
 <script>
