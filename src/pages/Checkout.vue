@@ -277,184 +277,14 @@
           </div>
         </div>
         <div class="column-right">
-          <div class="box">
-            <h2>Order Summary</h2>
-            <div class="flex column products">
-              <div class="product-wapper">
-                <div class="flex items-center">
-                  <div class="product-img">
-                    <img src="~assets/product.png" />
-                    <span class="count">1</span>
-                  </div>
-                  <p>€69.00</p>
-                </div>
-                <p class="bold6">€69.00</p>
-              </div>
-            </div>
-            <div class="flex items-center gap-24 coupon-code">
-              <q-input
-                outlined
-                v-model="text"
-                label="Discount code"
-                class="col-auto"
-              />
-              <button>Apply</button>
-            </div>
-            <div class="price-list">
-              <div class="price-list-items">
-                <div class="flex justify-between">
-                  <p>Subtotal</p>
-                  <p class="bold6">€69.00</p>
-                </div>
-                <div class="flex justify-between">
-                  <p>Shipping</p>
-                  <p class="bold6">--</p>
-                </div>
-                <div class="flex justify-between">
-                  <p>Discount</p>
-                  <p class="bold6">--</p>
-                </div>
-              </div>
-              <hr />
-              <div class="flex justify-between">
-                <p>Total</p>
-                <p class="bold6">€69.00</p>
-              </div>
-            </div>
-          </div>
-          <div class="box">
-            <div class="flex items-center justify-center gap-7">
-              <img src="~/assets/icons/lock.svg" />
-              <p class="small">
-                Secure SSL Encryption & Guaranteed Safe Checkout
-              </p>
-            </div>
-            <div class="flex items-center justify-center gap-7 mt-20">
-              <img src="~/assets/icons/mastercard.svg" />
-              <img src="~/assets/icons/visa.svg" />
-              <img src="~/assets/icons/paypal.svg" />
-              <img src="~/assets/icons/amex.svg" />
-              <img src="~/assets/icons/jcb.svg" />
-              <img src="~/assets/icons/dot.svg" />
-            </div>
-          </div>
-          <div class="box">
-            <h4>The ultimate jewellery club</h4>
-            <p class="mt-12 small">
-              Ornare rhoncus nunc ut felis. Faucibus dolor at ultrices
-              tincidunt. Pulvinar sed justo et viverra pellentesque.
-            </p>
-            <div class="flex items-center gap-9 q-mb-xs mt-20">
-              <img src="~/assets/icons/check.svg" />
-              <p class="small">Extra 10$ off!</p>
-            </div>
-            <div class="flex items-center gap-9 q-mb-xs">
-              <img src="~/assets/icons/check.svg" />
-              <p class="small">Free shipping on marked club items!</p>
-            </div>
-            <div class="flex items-center gap-9">
-              <img src="~/assets/icons/check.svg" />
-              <p class="small">Free returns on marked club items!</p>
-            </div>
-          </div>
-          <div class="box">
-            <h2>Payment Method</h2>
-            <div class="accodion-wapper mt-30">
-              <div class="accodion-box">
-                <div class="flex items-center justify-between">
-                  <button
-                    :class="{ active: state.paymentMethod === 1 }"
-                    @click="togglePaymentMethod(1)"
-                  >
-                    <span class="dot" />Credit Card
-                  </button>
-                  <div class="flex items-center justify-center gap-7">
-                    <img src="~/assets/icons/mastercard.svg" />
-                    <img src="~/assets/icons/visa.svg" />
-                    <img src="~/assets/icons/amex.svg" />
-                    <img src="~/assets/icons/more.svg" />
-                  </div>
-                </div>
-                <div v-show="state.paymentMethod === 1" class="mt-20">
-                  <q-input
-                    outlined
-                    v-model="text"
-                    label="2587 9860 2354"
-                    class="mt-20"
-                  >
-                    <template v-slot:prepend>
-                      <q-avatar>
-                        <img src="~assets/icons/card.svg" />
-                      </q-avatar>
-                    </template>
-                  </q-input>
-                  <q-input
-                    outlined
-                    v-model="text"
-                    label="Name on the card"
-                    class="mt-20"
-                  >
-                    <template v-slot:prepend>
-                      <q-avatar>
-                        <img src="~assets/icons/user.svg" />
-                      </q-avatar>
-                    </template>
-                  </q-input>
-                  <div class="two-fields-row">
-                    <div class="col">
-                      <q-input
-                        outlined
-                        v-model="text"
-                        label="MM/YY"
-                        class="mt-20"
-                      >
-                        <template v-slot:prepend>
-                          <q-avatar>
-                            <img src="~assets/icons/calender.svg" />
-                          </q-avatar>
-                        </template>
-                      </q-input>
-                    </div>
-                    <div class="col">
-                      <q-input
-                        outlined
-                        v-model="text"
-                        label="Post code"
-                        class="mt-20"
-                      >
-                        <template v-slot:prepend>
-                          <q-avatar>
-                            <img src="~assets/icons/lock2.svg" />
-                          </q-avatar>
-                        </template>
-                      </q-input>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="accodion-box mt-20">
-                <div class="flex items-center justify-between">
-                  <button
-                    :class="{ active: state.paymentMethod === 2 }"
-                    @click="togglePaymentMethod(2)"
-                  >
-                    <span class="dot" />Paypal
-                  </button>
-                  <img src="~/assets/icons/paypal-long.svg" />
-                </div>
-              </div>
-            </div>
-            <div class="mt-20 flex items-start gap-15">
-              <q-checkbox v-model="val" />
-              <p class="small term">
-                By checking this box, I acknowledge that I have read and agree
-                to the <a>Terms of Service</a>, and <a>Monthly Billing</a> Terms
-                of this website and want to opt-in for the monthly billed Dream
-                Collection Club®
-              </p>
-            </div>
-            <button class="purchase-button mt-30">Complete Purchase</button>
-          </div>
+          <OrderDetail
+            :productList="itemsList"
+            :Subtotal="Subtotal"
+            :totalPrice="totalPrice"
+          />
+          <SecureSection />
+          <ClubPage />
+          <PaymentMethod />
         </div>
       </div>
     </div>
@@ -463,9 +293,18 @@
 
 <script>
 import { reactive, ref } from 'vue'
-
+import OrderDetail from 'components/checkout/OrderDetail.vue'
+import SecureSection from 'components/checkout/Secure.vue'
+import ClubPage from 'components/checkout/ClubPage.vue'
+import PaymentMethod from 'components/checkout/PaymentMethod.vue'
 export default {
   name: 'Checkout',
+  components: {
+    OrderDetail: OrderDetail,
+    SecureSection: SecureSection,
+    ClubPage: ClubPage,
+    PaymentMethod: PaymentMethod
+  },
   methods: {
     isValidEmail() {
       const emailPattern =
@@ -475,6 +314,12 @@ export default {
     isValidNumber() {
       const numberPatteren = /^\d{10}$/
       return numberPatteren.test(this.phoneNumber) || 'Enter valid phone number'
+    },
+    isValidCardNumber() {
+      const cardNumberPatrent = /^[0-9]{13,19}$/
+      return (
+        cardNumberPatrent.test(this.cardNumber) || 'Enter valid card number'
+      )
     }
   },
   setup() {
@@ -504,7 +349,21 @@ export default {
       apertment: ref(''),
       city: ref(''),
       postCode: ref(''),
-
+      cardNumber: ref(''),
+      cardHolderName: ref(''),
+      cardDate: ref(''),
+      cardCode: ref(''),
+      discountCode: ref(''),
+      itemsList: [
+        {
+          imgerc: 'icons/product.png',
+          name: 'Nike sneakers',
+          count: 1,
+          price: 69.0
+        }
+      ],
+      totalPrice: 69.0,
+      Subtotal: 69.0,
       options: ['USA', 'Austalia', 'UK', 'Germany'],
       dense: ref(false),
       denseOpts: ref(false),
