@@ -50,7 +50,13 @@
                 <img src="~assets/icons/location.svg" />
               </template>
             </q-select>
-            <q-input color="teal" outlined v-model="text" label="Label">
+            <q-input
+              color="teal"
+              outlined
+              v-model="text"
+              label="Label"
+              class="mt-20"
+            >
               <template v-slot:append>
                 <q-avatar>
                   <img src="https://cdn.quasar.dev/logo-v2/svg/logo.svg" />
