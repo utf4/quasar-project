@@ -40,9 +40,11 @@
           <div class="mt-20">
             <q-input
               outlined
-              v-model="text"
+              v-model="regEmail"
               label="Email Address"
               class="mt-20"
+              type="email"
+              :rules="[val => !!val || 'Enter email address', isValidEmail,]"
             >
               <template v-slot:prepend>
                 <q-avatar>
@@ -50,7 +52,7 @@
                 </q-avatar>
               </template>
             </q-input>
-            <q-input outlined v-model="text" label="Phone Number" class="mt-20">
+            <q-input outlined v-model="phoneNumber" label="Phone Number" class="mt-20" :rules="[val => !!val || 'Enter Phone Number', isValidNumber,]">
               <template v-slot:prepend>
                 <q-avatar>
                   <img src="~assets/icons/phone.svg" />
@@ -149,10 +151,23 @@
 import { ref } from 'vue'
 
 export default {
+  name: 'Checkout',
+  methods: {
+    isValidEmail() {
+      const emailPattern = /^(?=[a-zA-Z0-9@._%+-]{6,254}$)[a-zA-Z0-9._%+-]{1,64}@(?:[a-zA-Z0-9-]{1,63}\.){1,8}[a-zA-Z]{2,63}$/
+      return emailPattern.test(this.regEmail) || 'Enter a vaild email address'
+    },
+    isValidNumber() {
+      const numberPatteren = /^\d{10}$/
+      return numberPatteren.test(this.phoneNumber) || 'Enter valid phone number'
+    }
+  },
   setup() {
     return {
       model: ref(null),
       text: ref(''),
+      regEmail: ref(''),
+      phoneNumber: ref(''),
 
       options: ['USA', 'Austalia', 'UK', 'Germany'],
 
