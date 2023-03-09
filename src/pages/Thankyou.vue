@@ -38,59 +38,13 @@
           </div>
         </div>
         <div class="column-right">
-          <div class="box">
-            <h2>Order Summary</h2>
-            <div class="flex column products">
-              <div class="product-wapper">
-                <div class="flex items-center">
-                  <div class="product-img">
-                    <img src="~assets/product.png" />
-                    <span class="count">1</span>
-                  </div>
-                  <p>€69.00</p>
-                </div>
-                <p class="bold6">€69.00</p>
-              </div>
-            </div>
-
-            <div class="price-list">
-              <div class="price-list-items">
-                <div class="flex justify-between">
-                  <p>Subtotal</p>
-                  <p class="bold6">€69.00</p>
-                </div>
-                <div class="flex justify-between">
-                  <p>Shipping</p>
-                  <p class="bold6">--</p>
-                </div>
-                <div class="flex justify-between">
-                  <p>Discount</p>
-                  <p class="bold6">--</p>
-                </div>
-              </div>
-              <hr />
-              <div class="flex justify-between">
-                <p>Total</p>
-                <p class="bold6">€69.00</p>
-              </div>
-            </div>
-          </div>
-          <div class="box">
-            <div class="flex items-center justify-center gap-7">
-              <img src="~/assets/icons/lock.svg" />
-              <p class="small">
-                Secure SSL Encryption & Guaranteed Safe Checkout
-              </p>
-            </div>
-            <div class="flex items-center justify-center gap-7 mt-20">
-              <img src="~/assets/icons/mastercard.svg" />
-              <img src="~/assets/icons/visa.svg" />
-              <img src="~/assets/icons/paypal.svg" />
-              <img src="~/assets/icons/amex.svg" />
-              <img src="~/assets/icons/jcb.svg" />
-              <img src="~/assets/icons/dot.svg" />
-            </div>
-          </div>
+          <OrderDetail
+            :productList="itemsList"
+            :Subtotal="Subtotal"
+            :totalPrice="totalPrice"
+            :showDiscount="showDiscount"
+          />
+          <SecureSection />
         </div>
       </div>
     </div>
@@ -98,9 +52,27 @@
 </template>
 
 <script>
+import OrderDetail from 'components/checkout/OrderDetail.vue'
+import SecureSection from 'components/checkout/Secure.vue'
 export default {
+  components: {
+    OrderDetail: OrderDetail,
+    SecureSection: SecureSection
+  },
   setup() {
-    return {}
+    return {
+      totalPrice: 69.0,
+      Subtotal: 69.0,
+      showDiscount: false,
+      itemsList: [
+        {
+          imgerc: 'product.png',
+          name: 'Nike sneakers',
+          count: 1,
+          price: 69.0
+        }
+      ]
+    }
   }
 }
 </script>

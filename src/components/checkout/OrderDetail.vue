@@ -13,7 +13,7 @@
           <p class="bold6">{{item.price}}.00</p>
         </div>
       </div>
-      <div class="flex items-center gap-24 coupon-code">
+      <div v-if="showDiscount" class="flex items-center gap-24 coupon-code">
         <q-input
           outlined
           v-model="discountCode"
@@ -58,6 +58,9 @@ export default {
     },
     totalPrice: {
       type: String
+    },
+    showDiscount: {
+      type: Boolean
     }
   },
   setup() {
