@@ -117,7 +117,12 @@
                 </q-input>
               </div>
             </div>
-            <q-input outlined v-model="text" label="Address" class="mt-20">
+            <q-input
+              outlined
+              v-model="shipAddress"
+              label="Address"
+              class="mt-20"
+            >
               <template v-slot:prepend>
                 <q-avatar>
                   <img src="~assets/icons/address.svg" />
@@ -126,7 +131,7 @@
             </q-input>
             <q-input
               outlined
-              v-model="text"
+              v-model="apertment"
               label="Aparment, suit, etc (Optional)"
               class="mt-20"
             >
@@ -138,12 +143,12 @@
             </q-input>
             <div class="two-fields-row">
               <div class="col">
-                <q-input outlined v-model="text" label="City" class="mt-20" />
+                <q-input outlined v-model="city" label="City" class="mt-20" />
               </div>
               <div class="col">
                 <q-input
                   outlined
-                  v-model="text"
+                  v-model="postCode"
                   label="Post code"
                   class="mt-20"
                 />
@@ -495,6 +500,10 @@ export default {
       phoneNumber: ref(''),
       firstName: ref(''),
       lastName: ref(''),
+      shipAddress: ref(''),
+      apertment: ref(''),
+      city: ref(''),
+      postCode: ref(''),
 
       options: ['USA', 'Austalia', 'UK', 'Germany'],
       dense: ref(false),
