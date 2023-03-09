@@ -294,7 +294,7 @@
             <div class="flex items-center gap-24 coupon-code">
               <q-input
                 outlined
-                v-model="text"
+                v-model="discountCode"
                 label="Discount code"
                 class="col-auto"
               />
@@ -378,9 +378,10 @@
                 <div v-show="state.paymentMethod === 1" class="mt-20">
                   <q-input
                     outlined
-                    v-model="text"
+                    v-model="cardNumber"
                     label="2587 9860 2354"
                     class="mt-20"
+                    :rules="[ val => !!val || 'Enter Card Number' ,isValidCardNumber]"
                   >
                     <template v-slot:prepend>
                       <q-avatar>
@@ -390,9 +391,10 @@
                   </q-input>
                   <q-input
                     outlined
-                    v-model="text"
+                    v-model="cardHolderName"
                     label="Name on the card"
                     class="mt-20"
+                    :rules="[ val => !!val || 'Enter card Holder Name']"
                   >
                     <template v-slot:prepend>
                       <q-avatar>
@@ -404,9 +406,10 @@
                     <div class="col">
                       <q-input
                         outlined
-                        v-model="text"
+                        v-model="cardDate"
                         label="MM/YY"
                         class="mt-20"
+                        :rules="[ val => !!val || 'Enter card Date']"
                       >
                         <template v-slot:prepend>
                           <q-avatar>
@@ -418,9 +421,10 @@
                     <div class="col">
                       <q-input
                         outlined
-                        v-model="text"
+                        v-model="cardCode"
                         label="Post code"
                         class="mt-20"
+                        :rules="[ val => !!val || 'Enter Card Post Code']"
                       >
                         <template v-slot:prepend>
                           <q-avatar>
@@ -475,6 +479,10 @@ export default {
     isValidNumber() {
       const numberPatteren = /^\d{10}$/
       return numberPatteren.test(this.phoneNumber) || 'Enter valid phone number'
+    },
+    isValidCardNumber() {
+      const cardNumberPatrent = /^[0-9]{13,19}$/
+      return cardNumberPatrent.test(this.cardNumber) || 'Enter valid card number'
     }
   },
   setup() {
@@ -504,6 +512,11 @@ export default {
       apertment: ref(''),
       city: ref(''),
       postCode: ref(''),
+      cardNumber: ref(''),
+      cardHolderName: ref(''),
+      cardDate: ref(''),
+      cardCode: ref(''),
+      discountCode: ref(''),
 
       options: ['USA', 'Austalia', 'UK', 'Germany'],
       dense: ref(false),
