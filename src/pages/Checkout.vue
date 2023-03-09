@@ -4,6 +4,32 @@
       <div class="page-layout">
         <div class="column-left">
           <h1 class="page-title">Checkout</h1>
+          <div class="mobile-sumary d-lg-none d-md-block">
+            <div class="show-summary-btn">
+              <div
+                class="btn-click flex items-center gap-15"
+                :class="{ active: state.summary === true }"
+                @click="toggleSummary()"
+              >
+                <img src="~/assets/icons/cart.svg" />
+                <p>Show order summary</p>
+                <img src="~/assets/icons/chev.svg" class="chev" />
+              </div>
+              <p class="bold6">€69.00</p>
+            </div>
+            <div
+              v-show="state.summary === true"
+              class="mt-12 d-lg-none d-md-block"
+            >
+              <OrderDetail
+                :productList="itemsList"
+                :Subtotal="Subtotal"
+                :totalPrice="totalPrice"
+                :showDiscount="true"
+              />
+              <ClubPage />
+            </div>
+          </div>
           <div class="sub-title">
             Strong demand! Complete your order before it's too late!
           </div>
@@ -38,6 +64,40 @@
           </div>
           <h2>Contact information</h2>
           <div class="mt-20">
+            <q-input
+              outlined
+              v-model="regEmail"
+              label="Email Address"
+              class="mt-20"
+              type="email"
+              :rules="[(val) => !!val || 'Enter email address', isValidEmail]"
+            >
+              <template v-slot:prepend>
+                <q-avatar>
+                  <img src="~assets/icons/email.svg" />
+                </q-avatar>
+              </template>
+            </q-input>
+            <q-input
+              outlined
+              v-model="phoneNumber"
+              label="Phone Number"
+              class="mt-20"
+              :rules="[(val) => !!val || 'Enter Phone Number', isValidNumber]"
+            >
+              <template v-slot:prepend>
+                <q-avatar>
+                  <img src="~assets/icons/phone.svg" />
+                </q-avatar>
+              </template>
+            </q-input>
+          </div>
+          <div class="mt-20 flex items-start gap-15">
+            <q-checkbox v-model="val" />
+            <p class="term">Sign up for exclusive offers and news</p>
+          </div>
+          <h2 class="mt-50">Shipping address</h2>
+          <div class="mt-20">
             <q-select
               class="form-field"
               outlined
@@ -45,11 +105,13 @@
               :options="options"
               :dense="dense"
               :options-dense="denseOpts"
+              label="Select a Country"
             >
               <template v-slot:prepend>
                 <img src="~assets/icons/location.svg" />
               </template>
             </q-select>
+<<<<<<< HEAD
             <q-input
               color="teal"
               outlined
@@ -58,15 +120,218 @@
               class="mt-20"
             >
               <template v-slot:append>
+=======
+            <div class="two-fields-row">
+              <div class="col">
+                <q-input
+                  outlined
+                  v-model="firstName"
+                  label="First Name"
+                  class="mt-20"
+                  :rules="[(val) => !!val || 'Enter a first name']"
+                >
+                  <template v-slot:prepend>
+                    <q-avatar>
+                      <img src="~assets/icons/user.svg" />
+                    </q-avatar>
+                  </template>
+                </q-input>
+              </div>
+              <div class="col">
+                <q-input
+                  outlined
+                  v-model="lastName"
+                  label="Last Name"
+                  class="mt-20"
+                  :rules="[(val) => !!val || 'Enter a last name']"
+                >
+                  <template v-slot:prepend>
+                    <q-avatar>
+                      <img src="~assets/icons/user.svg" />
+                    </q-avatar>
+                  </template>
+                </q-input>
+              </div>
+            </div>
+            <q-input
+              outlined
+              v-model="shipAddress"
+              label="Address"
+              class="mt-20"
+            >
+              <template v-slot:prepend>
                 <q-avatar>
-                  <img src="https://cdn.quasar.dev/logo-v2/svg/logo.svg" />
+                  <img src="~assets/icons/address.svg" />
                 </q-avatar>
               </template>
             </q-input>
+            <q-input
+              outlined
+              v-model="apertment"
+              label="Aparment, suit, etc (Optional)"
+              class="mt-20"
+            >
+              <template v-slot:prepend>
+>>>>>>> bb67e44f8178579718b940b7704ca017b96a6aa9
+                <q-avatar>
+                  <img src="~assets/icons/appartment.svg" />
+                </q-avatar>
+              </template>
+            </q-input>
+            <div class="two-fields-row">
+              <div class="col">
+                <q-input outlined v-model="city" label="City" class="mt-20" />
+              </div>
+              <div class="col">
+                <q-input
+                  outlined
+                  v-model="postCode"
+                  label="Post code"
+                  class="mt-20"
+                />
+              </div>
+            </div>
+          </div>
+          <h2 class="mt-50">Shipping method</h2>
+          <div class="accodion-wapper mt-20">
+            <div class="accodion-box mt-20">
+              <button
+                :class="{ active: state.shipingMethod === 1 }"
+                @click="toggleShipingMethod(1)"
+              >
+                <span class="dot" />Free Shipping
+              </button>
+            </div>
+            <div class="accodion-box mt-20">
+              <button
+                :class="{ active: state.shipingMethod === 2 }"
+                @click="toggleShipingMethod(2)"
+              >
+                <span class="dot" />DHL with price
+              </button>
+            </div>
+          </div>
+          <h2 class="mt-50">Billing address</h2>
+          <div class="accodion-wapper mt-20">
+            <div class="accodion-box mt-20">
+              <button
+                :class="{ active: state.billingAddress === 1 }"
+                @click="toggleBillingAddress(1)"
+              >
+                <span class="dot" />Same as shipping address
+              </button>
+            </div>
+            <div class="accodion-box mt-20">
+              <button
+                :class="{ active: state.billingAddress === 2 }"
+                @click="toggleBillingAddress(2)"
+              >
+                <span class="dot" />Use a different billing address
+              </button>
+              <div v-show="state.billingAddress === 2" class="mt-20">
+                <q-select
+                  class="form-field"
+                  outlined
+                  v-model="model"
+                  :options="options"
+                  :dense="dense"
+                  :options-dense="denseOpts"
+                  label="Select a Country"
+                >
+                  <template v-slot:prepend>
+                    <img src="~assets/icons/location.svg" />
+                  </template>
+                </q-select>
+                <div class="two-fields-row">
+                  <div class="col">
+                    <q-input
+                      outlined
+                      v-model="dFirstName"
+                      label="First Name"
+                      class="mt-20"
+                      :rules="[(val) => !!val || 'Enter a first name']"
+                    >
+                      <template v-slot:prepend>
+                        <q-avatar>
+                          <img src="~assets/icons/user.svg" />
+                        </q-avatar>
+                      </template>
+                    </q-input>
+                  </div>
+                  <div class="col">
+                    <q-input
+                      outlined
+                      v-model="dLastName"
+                      label="Last Name"
+                      class="mt-20"
+                      :rules="[(val) => !!val || 'Enter a last name']"
+                    >
+                      <template v-slot:prepend>
+                        <q-avatar>
+                          <img src="~assets/icons/user.svg" />
+                        </q-avatar>
+                      </template>
+                    </q-input>
+                  </div>
+                </div>
+                <q-input
+                  outlined
+                  v-model="dShipAddress"
+                  label="Address"
+                  class="mt-20"
+                >
+                  <template v-slot:prepend>
+                    <q-avatar>
+                      <img src="~assets/icons/address.svg" />
+                    </q-avatar>
+                  </template>
+                </q-input>
+                <q-input
+                  outlined
+                  v-model="dApertment"
+                  label="Aparment, suit, etc (Optional)"
+                  class="mt-20"
+                >
+                  <template v-slot:prepend>
+                    <q-avatar>
+                      <img src="~assets/icons/appartment.svg" />
+                    </q-avatar>
+                  </template>
+                </q-input>
+                <div class="two-fields-row">
+                  <div class="col">
+                    <q-input
+                      outlined
+                      v-model="dCity"
+                      label="City"
+                      class="mt-20"
+                    />
+                  </div>
+                  <div class="col">
+                    <q-input
+                      outlined
+                      v-model="dPostCode"
+                      label="Post code"
+                      class="mt-20"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="column-right">
-          <div class="box">.col</div>
+          <OrderDetail
+            :productList="itemsList"
+            :Subtotal="Subtotal"
+            :totalPrice="totalPrice"
+            :showDiscount="true"
+            class="d-md-none"
+          />
+          <SecureSection class="d-md-none" />
+          <ClubPage class="d-md-none" />
+          <PaymentMethod />
+          <SecureSection class="d-lg-none d-md-block" />
         </div>
       </div>
     </div>
@@ -74,18 +339,97 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-
+import { reactive, ref } from 'vue'
+import OrderDetail from 'components/checkout/OrderDetail.vue'
+import SecureSection from 'components/checkout/Secure.vue'
+import ClubPage from 'components/checkout/ClubPage.vue'
+import PaymentMethod from 'components/checkout/PaymentMethod.vue'
 export default {
+  name: 'Checkout',
+  components: {
+    OrderDetail: OrderDetail,
+    SecureSection: SecureSection,
+    ClubPage: ClubPage,
+    PaymentMethod: PaymentMethod
+  },
+  methods: {
+    isValidEmail() {
+      const emailPattern =
+        /^(?=[a-zA-Z0-9@._%+-]{6,254}$)[a-zA-Z0-9._%+-]{1,64}@(?:[a-zA-Z0-9-]{1,63}\.){1,8}[a-zA-Z]{2,63}$/
+      return emailPattern.test(this.regEmail) || 'Enter a vaild email address'
+    },
+    isValidNumber() {
+      const numberPatteren = /^\d{10}$/
+      return numberPatteren.test(this.phoneNumber) || 'Enter valid phone number'
+    },
+    isValidCardNumber() {
+      const cardNumberPatrent = /^[0-9]{13,19}$/
+      return (
+        cardNumberPatrent.test(this.cardNumber) || 'Enter valid card number'
+      )
+    }
+  },
   setup() {
+    const state = reactive({
+      shipingMethod: 1,
+      billingAddress: 1,
+      paymentMethod: 1,
+      summary: false
+    })
+    const toggleShipingMethod = (buttonNumber) => {
+      state.shipingMethod = buttonNumber
+    }
+    const toggleBillingAddress = (buttonNumber) => {
+      state.billingAddress = buttonNumber
+    }
+    const togglePaymentMethod = (buttonNumber) => {
+      state.paymentMethod = buttonNumber
+    }
+    const toggleSummary = () => {
+      state.summary = !state.summary
+    }
+
     return {
       model: ref(null),
       text: ref(''),
-
-      options: ['Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'],
-
+      regEmail: ref(''),
+      phoneNumber: ref(''),
+      firstName: ref(''),
+      lastName: ref(''),
+      shipAddress: ref(''),
+      apertment: ref(''),
+      city: ref(''),
+      postCode: ref(''),
+      dFirstName: ref(''),
+      dLastName: ref(''),
+      dShipAddress: ref(''),
+      dApertment: ref(''),
+      dCity: ref(''),
+      dPostCode: ref(''),
+      cardNumber: ref(''),
+      cardHolderName: ref(''),
+      cardDate: ref(''),
+      cardCode: ref(''),
+      discountCode: ref(''),
+      itemsList: [
+        {
+          imgerc: 'product.png',
+          name: 'Nike sneakers',
+          count: 1,
+          price: 69.0
+        }
+      ],
+      totalPrice: 69.0,
+      Subtotal: 69.0,
+      options: ['USA', 'Austalia', 'UK', 'Germany'],
       dense: ref(false),
-      denseOpts: ref(false)
+      denseOpts: ref(false),
+      val: ref(true),
+      state,
+      toggleShipingMethod,
+      toggleBillingAddress,
+      togglePaymentMethod,
+      toggleSummary
     }
   }
 }
@@ -94,15 +438,222 @@ export default {
 <style lang="scss">
 .page-bg {
   background-color: #d6d8ea;
+
   .container {
     max-width: 1600px;
     margin: 0 auto;
-    padding: 60px 20px;
+    padding: 60px 40px;
+    @media (max-width: $breakpoint-sm-max) {
+      padding: 60px 40px;
+    }
     .page-layout {
       display: flex;
       column-gap: 30px;
+      @media (max-width: $breakpoint-sm-max) {
+        flex-direction: column;
+        row-gap: 30px;
+      }
+      .mobile-sumary {
+        .box {
+          border: 1px solid #d6d8ee;
+          border-radius: 16px;
+          padding: 30px;
+          margin-bottom: 30px;
+          @media (max-width: $breakpoint-xs-max) {
+            padding: 15px;
+          }
+        }
+        .show-summary-btn {
+          background: #ffffff;
+          border: 1px solid #d6d8ee;
+          border-radius: 20px;
+          padding: 25px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 30px;
+          cursor: pointer;
+          .btn-click {
+            cursor: pointer;
+            &.active {
+              .chev {
+                transform: rotateX(180deg);
+              }
+            }
+          }
+        }
+      }
+      span.error-message {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        color: #f53d6b;
+        margin-top: 5px;
+        display: inline-block;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid #d6d8ea;
+      }
+
+      .purchase-button {
+        width: 100%;
+        background: #000034;
+        border-radius: 16px;
+        cursor: pointer;
+      }
       .mt-20 {
         margin-top: 20px;
+        @media (max-width: $breakpoint-sm-max) {
+          margin-top: 24px;
+        }
+        @media (max-width: $breakpoint-xs-max) {
+          margin-top: 15px;
+        }
+      }
+      .mt-12 {
+        margin-top: 12px;
+      }
+      .mt-30 {
+        margin-top: 30px;
+      }
+      .mt-50 {
+        margin-top: 50px;
+        @media (max-width: $breakpoint-xs-max) {
+          margin-top: 30px;
+        }
+      }
+      .mt-12 {
+        margin-top: 12px;
+      }
+      .accodion-wapper {
+        .accodion-box {
+          width: 100%;
+          background: rgba(239, 240, 245, 0.4);
+          border-radius: 16px;
+          padding: 20px;
+        }
+        button {
+          background: transparent;
+          border-radius: 16px;
+          padding: 0px;
+          min-height: auto;
+          border: none;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          font-family: 'Poppins';
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+          color: #4b4e68;
+          cursor: pointer;
+          .dot {
+            min-height: 24px;
+            min-width: 24px;
+            background-color: transparent;
+            border: 1px solid #d5d0df;
+            border-radius: 100%;
+            margin-right: 10px;
+            position: relative;
+          }
+          &.active {
+            .dot {
+              border: 1px solid #4b4e68;
+              &:before {
+                content: '';
+                height: 12px;
+                width: 12px;
+                background: #4b4e68;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                border-radius: 50%;
+              }
+            }
+          }
+        }
+      }
+      .gap-24 {
+        column-gap: 24px;
+      }
+      .gap-7 {
+        column-gap: 7px;
+        row-gap: 7px;
+      }
+      .gap-9 {
+        column-gap: 9px;
+        row-gap: 9px;
+      }
+      .gap-15 {
+        column-gap: 15px;
+        row-gap: 15px;
+      }
+      .product-wapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 30px 0;
+        .product-img {
+          width: 55px;
+          height: 52px;
+          border-radius: 8px;
+          position: relative;
+          margin-right: 20px;
+          img {
+            height: 100%;
+            width: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+            object-position: center;
+          }
+          .count {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            color: #ffffff;
+            background: #4b4e68;
+            min-width: 18px;
+            min-height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 100%;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 12px;
+          }
+        }
+      }
+      .coupon-code {
+        .q-field {
+          flex: 1;
+        }
+        button {
+          min-width: 130px;
+          border-radius: 16px;
+        }
+      }
+      .price-list {
+        margin-top: 30px;
+        p {
+          line-height: 26px;
+        }
+        .price-list-items {
+          display: flex;
+          flex-direction: column;
+          row-gap: 15px;
+        }
+        hr {
+          border-color: #d6d8ea;
+          margin: 10px 0;
+        }
       }
       p {
         font-family: 'Poppins';
@@ -114,6 +665,15 @@ export default {
         &.bold {
           font-weight: 500;
         }
+        &.bold6 {
+          font-weight: 600;
+        }
+        &.small {
+          font-size: 14px;
+        }
+        &.term {
+          width: calc(100% - 50px);
+        }
       }
       h1.page-title {
         font-family: 'Poppins';
@@ -123,6 +683,10 @@ export default {
         line-height: 46px;
         color: #000034;
         margin-bottom: 50px;
+        @media (max-width: $breakpoint-xs-max) {
+          font-size: 30px;
+          line-height: 40px;
+        }
       }
       h2 {
         font-family: 'Poppins';
@@ -138,6 +702,14 @@ export default {
         font-weight: 500;
         font-size: 20px;
         line-height: 30px;
+        color: #000034;
+      }
+      h4 {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 27px;
         color: #000034;
       }
       button {
@@ -174,6 +746,9 @@ export default {
         border-radius: 16px;
         margin-bottom: 20px;
         padding: 30px;
+        @media (max-width: $breakpoint-xs-max) {
+          padding: 15px;
+        }
         .express-checkout-btns {
           display: flex;
           column-gap: 20px;
@@ -201,6 +776,9 @@ export default {
         background: #f5f5f8;
         border-radius: 16px;
         padding: 30px;
+        @media (max-width: $breakpoint-xs-max) {
+          padding: 15px;
+        }
         margin-bottom: 50px;
         h3 {
           margin-bottom: 7px;
@@ -209,12 +787,49 @@ export default {
           font-size: 14px;
           line-height: 24px;
           max-width: 635px;
+          @media (max-width: $breakpoint-sm-max) {
+            max-width: 340px;
+          }
         }
         button {
           font-weight: 500;
           max-width: 115px;
           padding: 11px 35px;
+          @media (max-width: $breakpoint-xs-max) {
+            margin-top: 20px;
+            max-width: 150px;
+            min-height: 42px;
+            padding: 11px 26px;
+          }
         }
+      }
+      .two-fields-row {
+        display: flex;
+        column-gap: 24px;
+        @media (max-width: $breakpoint-xs-max) {
+          display: block;
+        }
+      }
+      .q-field,
+      .q-field__inner,
+      .q-field--focused,
+      .q-field--highlighted,
+      .q-field__control {
+        outline: none !important;
+        &:after {
+          outline: none !important;
+        }
+        &:before {
+          outline: none !important;
+        }
+      }
+      .q-field__label {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        color: #979ab8;
       }
       .q-field--outlined .q-field__control:before {
         border: 1px solid #d6d8ee;
@@ -223,10 +838,42 @@ export default {
         z-index: 0;
       }
       .q-field--outlined.q-field--highlighted .q-field__control:after {
-        border-radius: 16px;
+        border-radius: 16px !important;
       }
       .q-field__prepend {
         z-index: 1;
+      }
+      .q-field--outlined .q-field__control {
+        padding: 0px 25px;
+      }
+      .q-field__marginal .q-avatar {
+        font-size: 18px;
+        border-radius: 0;
+      }
+      .q-checkbox {
+        .q-checkbox__inner {
+          height: 20px;
+          width: 20px;
+          font-size: revert;
+          &:before {
+            display: none;
+          }
+          .q-checkbox__bg {
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            border-radius: 2px;
+            color: #4b4e68;
+            position: relative;
+          }
+        }
+      }
+      .q-field--with-bottom {
+        padding-bottom: 0;
+      }
+      .q-field--with-bottom.q-field--error {
+        padding-bottom: 20px;
       }
     }
     .column-left {
@@ -235,16 +882,42 @@ export default {
       max-width: 975px;
       width: 100%;
       padding: 40px;
+      @media (max-width: $breakpoint-sm-max) {
+        max-width: 100%;
+      }
     }
     .column-right {
       max-width: 595px;
       width: 100%;
-
+      @media (max-width: $breakpoint-sm-max) {
+        max-width: 100%;
+      }
       .box {
         background-color: #ffffff;
         border-radius: 16px;
         padding: 40px;
+        margin-bottom: 30px;
       }
+    }
+  }
+  @media (min-width: $breakpoint-sm-min) {
+    .d-lg-none {
+      display: none;
+    }
+  }
+  @media (max-width: $breakpoint-sm-max) {
+    .d-md-none {
+      display: none;
+    }
+    .d-md-block {
+      display: block;
+    }
+  }
+  @media (max-width: $breakpoint-xs-max) {
+    .secure-text {
+      align-items: start;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
     }
   }
 }
