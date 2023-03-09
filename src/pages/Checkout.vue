@@ -538,6 +538,11 @@ export default {
         margin-top: 5px;
         display: inline-block;
       }
+      hr {
+        border: 0;
+        border-top: 1px solid #d6d8ea;
+      }
+
       .purchase-button {
         width: 100%;
         background: #000034;
