@@ -281,6 +281,7 @@
             :productList="itemsList"
             :Subtotal="Subtotal"
             :totalPrice="totalPrice"
+             :showDiscount="true"
           />
           <SecureSection />
           <ClubPage />
@@ -356,7 +357,7 @@ export default {
       discountCode: ref(''),
       itemsList: [
         {
-          imgerc: 'icons/product.png',
+          imgerc: 'product.png',
           name: 'Nike sneakers',
           count: 1,
           price: 69.0
