@@ -280,15 +280,15 @@
           <div class="box">
             <h2>Order Summary</h2>
             <div class="flex column products">
-              <div class="product-wapper">
+              <div v-for="item in itemsList" v-bind:key="item" class="product-wapper"  >
                 <div class="flex items-center">
                   <div class="product-img">
-                    <img src="~assets/product.png" />
-                    <span class="count">1</span>
+                    <img :src="item.imgerc" />
+                    <span class="count">{{item.count}}</span>
                   </div>
-                  <p>€69.00</p>
+                  <p>{{item.name}}</p>
                 </div>
-                <p class="bold6">€69.00</p>
+                <p class="bold6">{{item.price}}.00</p>
               </div>
             </div>
             <div class="flex items-center gap-24 coupon-code">
@@ -517,6 +517,14 @@ export default {
       cardDate: ref(''),
       cardCode: ref(''),
       discountCode: ref(''),
+      itemsList: [
+        {
+          imgerc: 'img/product.png',
+          name: 'Nike sneakers',
+          count: 1,
+          price: 69.00
+        }
+      ],
 
       options: ['USA', 'Austalia', 'UK', 'Germany'],
       dense: ref(false),
