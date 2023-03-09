@@ -79,9 +79,10 @@
               <div class="col">
                 <q-input
                   outlined
-                  v-model="text"
+                  v-model="firstName"
                   label="First Name"
                   class="mt-20"
+                  :rules="[val => !!val || 'Enter a first name',]"
                 >
                   <template v-slot:prepend>
                     <q-avatar>
@@ -93,9 +94,10 @@
               <div class="col">
                 <q-input
                   outlined
-                  v-model="text"
+                  v-model="lastName"
                   label="Last Name"
                   class="mt-20"
+                  :rules="[val => !!val || 'Enter a last name',]"
                 >
                   <template v-slot:prepend>
                     <q-avatar>
@@ -168,6 +170,8 @@ export default {
       text: ref(''),
       regEmail: ref(''),
       phoneNumber: ref(''),
+      firstName: ref(''),
+      lastName: ref(''),
 
       options: ['USA', 'Austalia', 'UK', 'Germany'],
 
