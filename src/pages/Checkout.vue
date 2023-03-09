@@ -209,9 +209,10 @@
                   <div class="col">
                     <q-input
                       outlined
-                      v-model="text"
+                      v-model="dFirstName"
                       label="First Name"
                       class="mt-20"
+                      :rules="[(val) => !!val || 'Enter a first name']"
                     >
                       <template v-slot:prepend>
                         <q-avatar>
@@ -223,9 +224,10 @@
                   <div class="col">
                     <q-input
                       outlined
-                      v-model="text"
+                      v-model="dLastName"
                       label="Last Name"
                       class="mt-20"
+                      :rules="[(val) => !!val || 'Enter a last name']"
                     >
                       <template v-slot:prepend>
                         <q-avatar>
@@ -235,7 +237,7 @@
                     </q-input>
                   </div>
                 </div>
-                <q-input outlined v-model="text" label="Address" class="mt-20">
+                <q-input outlined v-model="dShipAddress" label="Address" class="mt-20">
                   <template v-slot:prepend>
                     <q-avatar>
                       <img src="~assets/icons/address.svg" />
@@ -244,7 +246,7 @@
                 </q-input>
                 <q-input
                   outlined
-                  v-model="text"
+                  v-model="dApertment"
                   label="Aparment, suit, etc (Optional)"
                   class="mt-20"
                 >
@@ -258,7 +260,7 @@
                   <div class="col">
                     <q-input
                       outlined
-                      v-model="text"
+                      v-model="dCity"
                       label="City"
                       class="mt-20"
                     />
@@ -266,7 +268,7 @@
                   <div class="col">
                     <q-input
                       outlined
-                      v-model="text"
+                      v-model="dPostCode"
                       label="Post code"
                       class="mt-20"
                     />
@@ -350,6 +352,12 @@ export default {
       apertment: ref(''),
       city: ref(''),
       postCode: ref(''),
+      dFirstName: ref(''),
+      dLastName: ref(''),
+      dShipAddress: ref(''),
+      dApertment: ref(''),
+      dCity: ref(''),
+      dPostCode: ref(''),
       cardNumber: ref(''),
       cardHolderName: ref(''),
       cardDate: ref(''),
