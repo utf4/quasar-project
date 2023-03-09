@@ -448,6 +448,7 @@
                 Collection Club®
               </p>
             </div>
+            <button class="purchase-button mt-30">Complete Purchase</button>
           </div>
         </div>
       </div>
@@ -527,6 +528,12 @@ export default {
         color: #f53d6b;
         margin-top: 5px;
         display: inline-block;
+      }
+      .purchase-button {
+        width: 100%;
+        background: #000034;
+        border-radius: 16px;
+        cursor: pointer;
       }
       .mt-20 {
         margin-top: 20px;
