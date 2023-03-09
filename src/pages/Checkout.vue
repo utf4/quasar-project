@@ -304,7 +304,7 @@
               <div class="price-list-items">
                 <div class="flex justify-between">
                   <p>Subtotal</p>
-                  <p class="bold6">€69.00</p>
+                  <p class="bold6">€{{Subtotal}}.00</p>
                 </div>
                 <div class="flex justify-between">
                   <p>Shipping</p>
@@ -318,7 +318,7 @@
               <hr />
               <div class="flex justify-between">
                 <p>Total</p>
-                <p class="bold6">€69.00</p>
+                <p class="bold6">€{{totalPrice}}.00</p>
               </div>
             </div>
           </div>
@@ -525,7 +525,8 @@ export default {
           price: 69.00
         }
       ],
-
+      totalPrice: 69.00,
+      Subtotal: 69.00,
       options: ['USA', 'Austalia', 'UK', 'Germany'],
       dense: ref(false),
       denseOpts: ref(false),
