@@ -6,14 +6,14 @@
         <div class="box mt-30 flex column justify-centet items-center">
           <div class="flex items-center price-box gap-12">
             <p>Price:</p>
-            <h4>$50</h4>
+            <h4>${{price}}</h4>
             <p class="discount">-80%</p>
           </div>
           <div class="quantity-box mt-30">
             <p class="text">Quantity:</p>
-            <button><img src="~/assets/icons/minus.svg" /></button>
-            <p class="text">1</p>
-            <button><img src="~/assets/icons/plus.svg" /></button>
+            <button  @click="minus"><img src="~/assets/icons/minus.svg" /></button>
+            <p class="text">{{count}}</p>
+            <button @click="plus"><img src="~/assets/icons/plus.svg" /></button>
           </div>
         </div>
         <p class="mt-40">
@@ -54,7 +54,7 @@
           </div>
         </div>
         <div class="action-btns">
-          <button>
+          <button @click="$router.replace('/checkout')">
             Yes, I want <img src="~/assets/icons/arrow.svg" class="q-ml-md" />
           </button>
           <p class="bold mt-30 pointer">No, Thanks</p>
@@ -65,13 +65,28 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 import Slider from '../components/Slider.vue'
 export default {
   components: {
     Slider
   },
+  methods: {
+    plus() {
+      this.price = this.price + this.productPrice
+      this.count = this.count + 1
+    },
+    minus() {
+      this.count = this.count === 1 ? 1 : this.count - 1
+      this.price = this.count > 1 ? this.price - this.productPrice : this.productPrice
+    }
+  },
   setup() {
-    return {}
+    return {
+      price: ref(50),
+      productPrice: ref(50),
+      count: ref(1)
+    }
   }
 }
 </script>

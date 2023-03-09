@@ -3,7 +3,7 @@
     <h2>Payment Method</h2>
     <div class="accodion-wapper mt-30">
       <div class="accodion-box">
-        <div class="flex items-md-center justify-between">
+        <div class="flex items-center justify-between">
           <button
             :class="{ active: state.paymentMethod === 1 }"
             @click="togglePaymentMethod(1)"
@@ -98,7 +98,9 @@
         website and want to opt-in for the monthly billed Dream Collection Club®
       </p>
     </div>
-    <button class="purchase-button mt-30">Complete Purchase</button>
+    <button class="purchase-button mt-30" @click="$router.replace('/thanks')">
+      Complete Purchase
+    </button>
   </div>
 </template>
 <script>
